@@ -1,9 +1,42 @@
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+
 <div class="container">
-    <i class="fa-solid fa-sun"></i>
-    <div class="row" style="font-size : 32px;margin-top: 5px">{{weatherdata.temp_celcius}}°</div>
-    <div class="row" style="font-size : 12px;">{{weatherdata.temp_min}}°/ {{weatherdata.temp_max}}°</div>
-    <div class="row" style="font-size : 12px;">Feels like : {{weatherdata.feels_like}}°</div>
-    <div class="row" style="font-size : 25px;margin-top: 10px">{{weatherdata.name}}</div>
-    <div class="row" style="font-size : 12px;">Humidity : {{weatherdata.main.humidity}}%</div>
+    <div class="search-container">
+      <input type="text" class="search-input" [(ngModel)]="searchQuery" placeholder="Enter city name">
+      <button class="search-button" (click)="searchWeather()">Search</button>
+    </div>
     
-</div>
+    <div *ngIf="weatherdata.name">
+      <div class="weather-icon">
+        <i class="fas" [ngClass]="weatherdata.isDay ? 'fa-sun' : 'fa-moon'"></i>
+      </div>
+      <div class="temperature">{{weatherdata.temp_celcius}}°C</div>
+      <div class="city-name">{{weatherdata.name}}</div>
+      
+      <div class="weather-details">
+        <div class="weather-detail">
+          <div class="weather-detail-label">Min</div>
+          <div class="weather-detail-value">{{weatherdata.temp_min}}°C</div>
+        </div>
+        <div class="weather-detail">
+          <div class="weather-detail-label">Max</div>
+          <div class="weather-detail-value">{{weatherdata.temp_max}}°C</div>
+        </div>
+        <div class="weather-detail">
+          <div class="weather-detail-label">Feels Like</div>
+          <div class="weather-detail-value">{{weatherdata.feels_like}}°C</div>
+        </div>
+        <div class="weather-detail">
+          <div class="weather-detail-label">Humidity</div>
+          <div class="weather-detail-value">{{weatherdata.humidity}}%</div>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="!weatherdata.name" class="no-data">
+      No weather data available. Please search for a city.
+    </div>
+  </div>
+  
+  
